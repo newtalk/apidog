@@ -29,6 +29,8 @@ class DeleteApi extends Mapping
 
     public $methods = ['DELETE'];
 
+	public $alias;
+
     public function __construct($value = null)
     {
         parent::__construct($value);

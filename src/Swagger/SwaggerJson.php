@@ -141,6 +141,24 @@ class SwaggerJson
         if ($consumes !== null) {
             $this->swagger['paths'][$path][$method]['consumes'] = [$consumes];
         }
+        //别名
+        if($mapping->alias){
+        	$aliases = explode(',',$mapping->alias);
+        	foreach ($aliases as $alias) {
+		        $tokens = [ $versionAnno ? $versionAnno->version : null, $prefix, $alias ];
+		        $tokens = array_map( function ( $item ) {
+			        return ltrim( $item, '/' );
+		        }, array_filter( $tokens ) );
+		        $alias = '/' . implode( '/', $tokens );
+//		        $this->swagger['paths'][ $alias ][$method] = $this->swagger['paths'][$path][$method];
+		        $this->swagger['paths'][ $path ][$method]['summary'] .=  "[{$alias}] ";
+//		        $this->swagger['paths'][ $alias ][$method]['operationId'] = implode('', array_map('ucfirst', explode('/', $alias))) . $method;
+//		        $this->swagger['paths'][ $alias ] =[
+//		        	$method => ['summary' => $path.'别名'],
+//			        '$ref' => '#/paths/' . str_replace( [ '~', '/' ], ['~0','~1'], $path ),
+//		        ];
+	        }
+        }
     }
 
     public function getTypeByRule($rule)

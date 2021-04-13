@@ -29,6 +29,8 @@ class PostApi extends Mapping
 
     public $methods = ['POST'];
 
+	public $alias;
+
     public function __construct($value = null)
     {
         parent::__construct($value);

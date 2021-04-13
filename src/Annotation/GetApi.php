@@ -29,6 +29,8 @@ class GetApi extends Mapping
 
     public $methods = ['GET'];
 
+    public $alias;
+
     public function __construct($value = null)
     {
         parent::__construct($value);

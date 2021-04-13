@@ -50,12 +50,27 @@ class DispatcherFactory extends HyperfDispatcherFactory
                     return ltrim($item, '/');
                 }, array_filter($tokens));
                 $path = '/' . implode('/', $tokens);
-
                 $router->addRoute($mapping->methods, $path, [$className, $methodName], [
                     'middleware' => $methodMiddlewares,
                 ]);
+                //别名
+                if($mapping->alias){
+                	$aliases = explode(',',$mapping->alias);
+                	foreach ($aliases as $alias){
+		                $tokens = [$version ? $version->version : null, $annotation->prefix, $alias];
+		                $tokens = array_map(function ($item) {
+			                return ltrim($item, '/');
+		                }, array_filter($tokens));
+		                $alias = '/' . implode('/', $tokens);
+		                $router->addRoute($mapping->methods, $alias, [$className, $methodName], [
+			                'middleware' => $methodMiddlewares,
+		                ]);
+	                }
+                }
             }
         }
+        
+
     }
 
     protected function initAnnotationRoute(array $collector): void

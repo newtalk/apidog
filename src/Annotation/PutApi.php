@@ -29,6 +29,8 @@ class PutApi extends Mapping
 
     public $methods = ['PUT'];
 
+	public $alias;
+
     public function __construct($value = null)
     {
         parent::__construct($value);
