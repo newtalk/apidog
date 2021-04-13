@@ -20,7 +20,7 @@ use Hyperf\HttpServer\Router\DispatcherFactory as HyperfDispatcherFactory;
 
 class DispatcherFactory extends HyperfDispatcherFactory
 {
-    protected function handleController(string $className, Controller $annotation, array $methodMetadata, array $middlewares = []): void
+    protected function apiController(string $className, Controller $annotation, array $methodMetadata, array $middlewares = []): void
     {
         if (! $methodMetadata) {
             return;
@@ -78,7 +78,7 @@ class DispatcherFactory extends HyperfDispatcherFactory
         foreach ($collector as $className => $metadata) {
             if (isset($metadata['_c'][ApiController::class])) {
                 $middlewares = $this->handleMiddleware($metadata['_c']);
-                $this->handleController($className, $metadata['_c'][ApiController::class], $metadata['_m'] ?? [], $middlewares);
+                $this->apiController($className, $metadata['_c'][ApiController::class], $metadata['_m'] ?? [], $middlewares);
             }
         }
         parent::initAnnotationRoute($collector);
