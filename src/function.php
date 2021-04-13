@@ -38,3 +38,29 @@ if (! function_exists('array_sort_by_key_length')) {
         return $arr;
     }
 }
+
+if (! function_exists('array_sort_by_key')) {
+	function array_sort_by_key($list, $key, $sort_order=SORT_ASC) {
+		if(is_array($list)){
+			$refer = $resultSet = array();
+			foreach ($list as $i => $data)
+				$refer[$i] = &$data[$key];
+
+			switch ($sort_order) {
+				case SORT_ASC: // 正向排序
+					asort($refer);
+					break;
+				case SORT_DESC:// 逆向排序
+					arsort($refer);
+					break;
+				case SORT_NATURAL: // 自然排序
+					natcasesort($refer);
+					break;
+			}
+			foreach ( $refer as $i=> $val)
+				$resultSet[] = &$list[$i];
+			return $resultSet;
+		}
+		return false;
+	}
+}

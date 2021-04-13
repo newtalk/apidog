@@ -416,7 +416,7 @@ class SwaggerJson
 
     public function save()
     {
-        $this->swagger['tags'] = array_values($this->swagger['tags'] ?? []);
+        $this->swagger['tags'] = array_sort_by_key( array_values($this->swagger['tags'] ?? []) ,'name',SORT_ASC);
         $outputFile = $this->config->get('apidog.output_file');
         if (! $outputFile) {
             $this->logger->error('/config/autoload/apidog.php need set output_file');
