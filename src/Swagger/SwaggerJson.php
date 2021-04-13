@@ -130,8 +130,9 @@ class SwaggerJson
         $this->swagger['paths'][$path][$method] = [
             'tags' => [$tag],
             'summary' => $mapping->summary ?? '',
+	        'deprecated' => boolval($mapping->deprecated),
             'description' => $mapping->description ?? '',
-            'operationId' => implode('', array_map('ucfirst', explode('/', $path))) . $mapping->methods[0],
+            'operationId' => implode('', array_map('ucfirst', explode('/', $path))) . $method,
             'parameters' => $this->makeParameters($params, $path, $method),
             'produces' => [
                 'application/json',
